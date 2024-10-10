@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  CapXSubmission
+//
+//  Created by Adarsh Singh on 10/10/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_KEY = "2M3CP3TR9CLBE86T"
