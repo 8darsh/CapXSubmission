@@ -7,10 +7,7 @@
 
 import Foundation
 
-enum apiUrl: String{
-    case baseUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
-    case endUrl = "&apikey=demo"
-}
+
 
 class NetworkManager{
     

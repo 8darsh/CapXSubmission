@@ -8,22 +8,12 @@
 import Foundation
 import UIKit
 
-final class viewModel{
+final class StockViewModel{
     
-    let stockSymbol: String!
+    
     var stock: StockData?
     var eventHandler: ((_ event: Event) -> Void)?
-    
-    init(stockSymbol: String) {
-        self.stockSymbol = stockSymbol
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
+
 
     
     func getStock(symbol: String){
@@ -36,6 +26,7 @@ final class viewModel{
             case .success(let stock):
                 
                 self.stock = stock
+                self.eventHandler?(.dataLoded(stock))
             case .failure(let error):
                 self.eventHandler?(.error(error))
 
@@ -63,8 +54,9 @@ final class viewModel{
     
 }
 
-extension viewModel{
+extension StockViewModel{
     enum Event{
+        case dataLoded(StockData)
         case error(Error?)
     }
 }
