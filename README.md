@@ -13,3 +13,10 @@ The project uses the [Alpha Vantage API](https://www.alphavantage.co/) to retrie
 ```bash
 git clone https://github.com/your-repo/CapXSubmission.git
 cd CapXSubmission
+
+
+https://github.com/user-attachments/assets/d3d7cad3-1ef9-41e3-ace2-c6437935cada
+
+
+
+
