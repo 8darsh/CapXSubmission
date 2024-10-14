@@ -8,7 +8,10 @@ The project uses the [Alpha Vantage API](https://www.alphavantage.co/) to retrie
 - **Real API Key:** To test the app with other stock symbols, you can replace the API key in the project with your own or use the provided key: `2M3CP3TR9CLBE86T` just go to Utilities/Constant and replase the end url with api key.
 
 
-https://github.com/user-attachments/assets/73eaa3e2-c294-48f3-a7b6-50eee0b8d0eb
+
+
+
+https://github.com/user-attachments/assets/a25d56ff-b360-4882-b2c3-ea30f7c1f33c
 
 
 
