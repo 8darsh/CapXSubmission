@@ -35,21 +35,27 @@ final class StockViewModel{
     }
     
     
-    func calculatePercentageChange(with today: String, and yesterday: String) -> String{
+    func calculatePercentageChange(with today: String, and yesterday: String) -> (String, UIColor){
         let trimmedToday = today.trimmingCharacters(in: .whitespaces)
         let trimmedYesterday = yesterday.trimmingCharacters(in: .whitespaces)
 
         guard let todayCloseVal = Double(trimmedToday),
               let yesterdayCloseVal = Double(trimmedYesterday),
               yesterdayCloseVal != 0 else {
-            return "N/A" // Return a placeholder if conversion fails or yesterday's value is zero
+            return ("N/A", .black) // Return a placeholder if conversion fails or yesterday's value is zero
         }
 
         // Calculate the percentage change
         let percentageChange = ((todayCloseVal - yesterdayCloseVal) / yesterdayCloseVal) * 100
-
+        
+        let color = getProfitLoassColor(percentage: percentageChange)
         // Format and return the result
-        return String(format: "%.2f%%", percentageChange)
+        return (String(format: "%.2f%%", percentageChange), color)
+    }
+    
+    func getProfitLoassColor(percentage: Double) -> UIColor{
+        
+        return percentage > 0 ? .green : .red
     }
     
 }
@@ -57,6 +63,6 @@ final class StockViewModel{
 extension StockViewModel{
     enum Event{
         case dataLoded(StockData)
-        case error(Error?)
+        case error(GFError?)
     }
 }

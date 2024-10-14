@@ -54,7 +54,6 @@ class HomeVC: UIViewController {
             presentErrorOnMainThread(with: "Enter the stock")
             return
         }
-        print(stockSearchTextField.text!)
         let stockDetailVC = StockDetailVC(stockSymbol: stockSearchTextField.text!)
         let navController = UINavigationController(rootViewController: stockDetailVC)
         

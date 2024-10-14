@@ -95,22 +95,22 @@ class StockDetailVC: UIViewController {
             stockPriceDisplay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             stockPriceDisplay.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stockPriceDisplay.widthAnchor.constraint(equalToConstant: 100),
-            stockPriceDisplay.heightAnchor.constraint(equalToConstant: 40),
+            stockPriceDisplay.heightAnchor.constraint(equalToConstant: 20),
             
             stockPrice.topAnchor.constraint(equalTo: stockPriceDisplay.bottomAnchor, constant: 10),
             stockPrice.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stockPrice.widthAnchor.constraint(equalToConstant: 100),
-            stockPrice.heightAnchor.constraint(equalToConstant: 40),
+            stockPrice.heightAnchor.constraint(equalToConstant: 10),
             
             percentageChangeDisplay.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             percentageChangeDisplay.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             percentageChangeDisplay.widthAnchor.constraint(equalToConstant: 100),
-            percentageChangeDisplay.heightAnchor.constraint(equalToConstant: 40),
+            percentageChangeDisplay.heightAnchor.constraint(equalToConstant: 20),
             
             percentageChange.topAnchor.constraint(equalTo: percentageChangeDisplay.bottomAnchor, constant: 10),
             percentageChange.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             percentageChange.widthAnchor.constraint(equalToConstant: 100),
-            percentageChange.heightAnchor.constraint(equalToConstant: 40)
+            percentageChange.heightAnchor.constraint(equalToConstant: 10)
             
         ])
     }
@@ -121,8 +121,12 @@ class StockDetailVC: UIViewController {
     
     func configureUIElements(with stock: StockData){
         title = stockSymbol
-        stockPrice.text = stock.fetchStockDataForTodayAndYesterday().todayData?.close
-        percentageChange.text = viewModel.calculatePercentageChange(with: stock.fetchStockDataForTodayAndYesterday().todayData?.close ?? "0", and: stock.fetchStockDataForTodayAndYesterday().yesterdayData?.close ?? "0")
+        stockPrice.text = stock.fetchStockDataForTodayAndYesterday(lastRefreshed: stock.metaData.lastRefreshed).todayData?.close
+        
+        percentageChange.text = viewModel.calculatePercentageChange(with: stock.fetchStockDataForTodayAndYesterday(lastRefreshed: stock.metaData.lastRefreshed).todayData?.close ?? "0", and: stock.fetchStockDataForTodayAndYesterday(lastRefreshed: stock.metaData.lastRefreshed).yesterdayData?.close ?? "0").0
+        
+        percentageChange.textColor = viewModel.calculatePercentageChange(with: stock.fetchStockDataForTodayAndYesterday(lastRefreshed: stock.metaData.lastRefreshed).todayData?.close ?? "0", and: stock.fetchStockDataForTodayAndYesterday(lastRefreshed: stock.metaData.lastRefreshed).yesterdayData?.close ?? "0").1
+ 
         
     }
     
@@ -142,14 +146,16 @@ class StockDetailVC: UIViewController {
                 }
                 
             case .error(let error):
-                presentErrorOnMainThread(with: error.debugDescription)
+                presentErrorOnMainThread(with: error?.rawValue ?? "Something went wrong")
                 
 
             }
         }
     }
     
-    
+}
+#Preview {
+    StockDetailVC(stockSymbol: "AAPL")
+}
     
 
-}

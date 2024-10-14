@@ -14,14 +14,16 @@ struct StockData: Codable{
     enum CodingKeys: String, CodingKey{
         case metaData = "Meta Data"
         case timeSeriesDaily = "Time Series (Daily)"
+        
     }
     
-    func fetchStockDataForTodayAndYesterday() -> (todayData: TimeSeriesData?, yesterdayData: TimeSeriesData?) {
+    func fetchStockDataForTodayAndYesterday(lastRefreshed: String) -> (todayData: TimeSeriesData?, yesterdayData: TimeSeriesData?) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let refrehedDate = dateFormatter.date(from: lastRefreshed) ?? Date.now
         // Get today's date
-        let today = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        let today = Calendar.current.date(byAdding: .day, value: 0, to: refrehedDate)!
         let todayString = dateFormatter.string(from: today)
 
         // Get yesterday's date
@@ -39,9 +41,11 @@ struct StockData: Codable{
 struct MetaData: Codable{
     
     let symbol: String
+    let lastRefreshed: String
     
     enum CodingKeys: String, CodingKey{
         case symbol = "2. Symbol"
+        case lastRefreshed = "3. Last Refreshed"
        
     }
     
